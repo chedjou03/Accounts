@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+
+  accounts:
+    image: chedjou03/accounts:latest
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - chedjou03-networks
+
+  loans:
+    image: chedjou03/loans:latest
+    mem_limit: 700m
+    ports:
+      - "8090:8090"
+    networks:
+      - chedjou03-networks
+
+  cards:
+    image: chedjou03/cards:latest
+    mem_limit: 700m
+    ports:
+      - "8070:8070"
+    networks:
+      - chedjou03-networks
+networks:
+   chedjou03-networks:
