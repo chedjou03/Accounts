@@ -1,6 +1,8 @@
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/Bank Application/Account/src/main/java/com/account/model/Account.java
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/Bank Application/Account/src/main/java/com/account/model/Customer.java
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/Bank Application/Account/src/main/java/com/account/SpringBootAccountApplication.java
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/Bank Application/Account/src/main/java/com/account/controller/AccountController.java
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/Bank Application/Account/src/main/java/com/account/helloWorldController.java
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/Bank Application/Account/src/main/java/com/account/repository/AccountRepository.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/helloWorldController.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Account.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/SpringBootAccountApplication.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/controller/AccountController.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/config/AccountsServiceConfig.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Customer.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Properties.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/repository/AccountRepository.java

@@ -1,5 +1,7 @@
 com/account/helloWorldController.class
+com/account/model/Properties.class
 com/account/repository/AccountRepository.class
+com/account/config/AccountsServiceConfig.class
 com/account/controller/AccountController.class
 com/account/model/Customer.class
 com/account/model/Account.class
