@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+
+  configserver:
+    image: chedjou03/configserver:latest
+    mem_limit: 700m
+    ports:
+      - "8071:8071"
+    networks:
+      - chedjou03-networks
+
+  accounts:
+    image: chedjou03/accounts:latest
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - chedjou03-networks
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+  loans:
+    image: chedjou03/loans:latest
+    mem_limit: 700m
+    ports:
+      - "8090:8090"
+    networks:
+      - chedjou03-networks
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+  cards:
+    image: chedjou03/cards:latest
+    mem_limit: 700m
+    ports:
+      - "8070:8070"
+    networks:
+      - chedjou03-networks
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+networks:
+  chedjou03-networks:
