@@ -1,8 +1,13 @@
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/helloWorldController.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/service/client/CardsFeignClient.java
 /Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Account.java
-/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/SpringBootAccountApplication.java
 /Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/controller/AccountController.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Card.java
 /Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/config/AccountsServiceConfig.java
 /Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Customer.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Loan.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/CustomerDetails.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/service/client/LoansFeignClient.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/helloWorldController.java
+/Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/SpringBootAccountApplication.java
 /Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/model/Properties.java
 /Users/simplicechedjou/Desktop/UdemyProject/MasterMicroserviceJavaSpringDockerKubernetes/BankApplicationGit/Accounts/src/main/java/com/account/repository/AccountRepository.java
