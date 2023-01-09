@@ -10,6 +10,25 @@ services:
     networks:
       - chedjou03-networks
 
+  eurekaserver:
+    image: chedjou03/eurekaserver:latest
+    mem_limit: 700m
+    ports:
+      - "8060:8060"
+    networks:
+      - chedjou03-networks
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
   accounts:
     image: chedjou03/accounts:latest
     mem_limit: 700m
@@ -19,6 +38,7 @@ services:
       - chedjou03-networks
     depends_on:
       - configserver
+      - eurekaserver
     deploy:
       restart_policy:
         condition: on-failure
