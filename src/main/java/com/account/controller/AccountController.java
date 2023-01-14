@@ -7,11 +7,10 @@ import com.account.service.client.CardsFeignClient;
 import com.account.service.client.LoansFeignClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,8 +30,11 @@ public class AccountController {
     @Autowired
     CardsFeignClient cardsFeignClient;
 
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+
     @PostMapping("/myAccount")
-    public Account getAccountDetail(@RequestBody Customer customer){
+    public Account getAccountDetail(@RequestHeader("ChedjouBank-correlation-id") String correlationId,@RequestBody Customer customer){
+        logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         Account account = accountRepository.findByCustomerId(customer.getCustomerId());
         if(account!=null){
             return account;
@@ -51,10 +53,11 @@ public class AccountController {
 
     @PostMapping("/myCustomerDetails")
     @CircuitBreaker(name = "customerDetailsCircuitBreaker",fallbackMethod = "myDefaultCustomerDetailFallBack")
-    public CustomerDetails myCustomerDetails(@RequestBody Customer customer) {
+    public CustomerDetails myCustomerDetails(@RequestHeader("ChedjouBank-correlation-id") String correlationId, @RequestBody Customer customer) {
+        logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         Account accounts = accountRepository.findByCustomerId(customer.getCustomerId());
-        List<Loan> loans = loansFeignClient.getLoansDetail(customer);
-        List<Card> cards = cardsFeignClient.getCardDetails(customer);
+        List<Loan> loans = loansFeignClient.getLoansDetail(correlationId, customer);
+        List<Card> cards = cardsFeignClient.getCardDetails(correlationId,customer);
 
         CustomerDetails customerDetails = new CustomerDetails();
         customerDetails.setAccounts(accounts);
@@ -65,10 +68,11 @@ public class AccountController {
 
     }
     
-    private CustomerDetails myDefaultCustomerDetailFallBack(Customer customer,Throwable t){
+    private CustomerDetails myDefaultCustomerDetailFallBack(@RequestHeader("ChedjouBank-correlation-id") String correlationId,Customer customer,Throwable t){
+        logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         CustomerDetails customerDetails = new CustomerDetails();
         Account accounts = accountRepository.findByCustomerId(customer.getCustomerId());
-        List<Loan> loans = loansFeignClient.getLoansDetail(customer);
+        List<Loan> loans = loansFeignClient.getLoansDetail(correlationId,customer);
         customerDetails = new CustomerDetails();
         customerDetails.setAccounts(accounts);
         customerDetails.setLoans(loans);
