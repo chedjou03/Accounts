@@ -87,5 +87,29 @@ services:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
 
+  gatewayserver:
+    image: chedjou03/gatewayserver:latest
+    mem_limit: 700m
+    ports:
+      - "8050:8050"
+    networks:
+      - chedjou03-networks
+    depends_on:
+      - configserver
+      - eurekaserver
+      - cards
+      - accounts
+      - loans
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 55s
+        max_attempts: 5
+        window: 180s
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8060/eureka/
+
 networks:
   chedjou03-networks:
