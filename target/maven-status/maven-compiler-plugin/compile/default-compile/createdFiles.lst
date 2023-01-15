@@ -1,0 +1,13 @@
+com/account/model/CustomerDetails.class
+com/account/model/Properties.class
+com/account/repository/AccountRepository.class
+com/account/config/AccountsServiceConfig.class
+com/account/controller/AccountController.class
+com/account/model/Customer.class
+com/account/service/client/LoansFeignClient.class
+com/account/model/Account.class
+com/account/helloWorldController.class
+com/account/model/Loan.class
+com/account/SpringBootAccountApplication.class
+com/account/model/Card.class
+com/account/service/client/CardsFeignClient.class

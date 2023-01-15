@@ -54,6 +54,7 @@ public class AccountController {
     @PostMapping("/myCustomerDetails")
     @CircuitBreaker(name = "customerDetailsCircuitBreaker",fallbackMethod = "myDefaultCustomerDetailFallBack")
     public CustomerDetails myCustomerDetails(@RequestHeader("ChedjouBank-correlation-id") String correlationId, @RequestBody Customer customer) {
+        logger.info("myCustomerDetails method has started");
         logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         Account accounts = accountRepository.findByCustomerId(customer.getCustomerId());
         List<Loan> loans = loansFeignClient.getLoansDetail(correlationId, customer);
@@ -64,11 +65,13 @@ public class AccountController {
         customerDetails.setLoans(loans);
         customerDetails.setCards(cards);
 
+        logger.info("myCustomerDetails method is ending");
         return customerDetails;
 
     }
     
     private CustomerDetails myDefaultCustomerDetailFallBack(@RequestHeader("ChedjouBank-correlation-id") String correlationId,Customer customer,Throwable t){
+        logger.info("myDefaultCustomerDetailFallBack method has started");
         logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         CustomerDetails customerDetails = new CustomerDetails();
         Account accounts = accountRepository.findByCustomerId(customer.getCustomerId());
@@ -76,6 +79,8 @@ public class AccountController {
         customerDetails = new CustomerDetails();
         customerDetails.setAccounts(accounts);
         customerDetails.setLoans(loans);
+
+        logger.info("myDefaultCustomerDetailFallBack method is ending");
         return customerDetails;
     }
 }
