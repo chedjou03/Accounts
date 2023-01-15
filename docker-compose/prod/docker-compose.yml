@@ -2,6 +2,14 @@ version: "3.8"
 
 services:
 
+  zipkin:
+    image: openzipkin/zipkin
+    mem_limit: 700m
+    ports:
+      - "9411:9411"
+    networks:
+      - chedjou03-networks
+
   configserver:
     image: chedjou03/configserver:latest
     mem_limit: 700m
@@ -9,6 +17,11 @@ services:
       - "8071:8071"
     networks:
       - chedjou03-networks
+    depends_on:
+      - zipkin
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_ZIPKIN_BASEURL: http://zipkin:9411/
 
   eurekaserver:
     image: chedjou03/eurekaserver:latest
@@ -28,6 +41,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: default
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_ZIPKIN_BASEURL: http://zipkin:9411/
 
   accounts:
     image: chedjou03/accounts:latest
@@ -48,6 +62,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_ZIPKIN_BASEURL: http://zipkin:9411/
 
   loans:
     image: chedjou03/loans:latest
@@ -67,6 +82,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_ZIPKIN_BASEURL: http://zipkin:9411/
 
   cards:
     image: chedjou03/cards:latest
@@ -86,6 +102,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_ZIPKIN_BASEURL: http://zipkin:9411/
 
   gatewayserver:
     image: chedjou03/gatewayserver:latest
@@ -110,6 +127,7 @@ services:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8060/eureka/
+      SPRING_ZIPKIN_BASEURL: http://zipkin:9411/
 
 networks:
   chedjou03-networks:
