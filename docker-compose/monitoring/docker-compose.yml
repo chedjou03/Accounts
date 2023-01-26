@@ -11,6 +11,18 @@ services:
     networks:
       - chedjou03-networks
 
+  grafana:
+    image: "grafana/grafana:latest"
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    networks:
+      - chedjou03-networks
+    depends_on:
+      - prometheus
+
   zipkin:
     image: openzipkin/zipkin
     mem_limit: 700m

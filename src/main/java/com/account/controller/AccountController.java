@@ -7,6 +7,7 @@ import com.account.service.client.CardsFeignClient;
 import com.account.service.client.LoansFeignClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class AccountController {
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @PostMapping("/myAccount")
+    @Timed(value = "getAccountDetails.time", description = "Time taken to return Account Details")
     public Account getAccountDetail(@RequestHeader("ChedjouBank-correlation-id") String correlationId,@RequestBody Customer customer){
         logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         Account account = accountRepository.findByCustomerId(customer.getCustomerId());
@@ -53,7 +55,8 @@ public class AccountController {
 
     @PostMapping("/myCustomerDetails")
     @CircuitBreaker(name = "customerDetailsCircuitBreaker",fallbackMethod = "myDefaultCustomerDetailFallBack")
-    public CustomerDetails myCustomerDetails(@RequestHeader("ChedjouBank-correlation-id") String correlationId, @RequestBody Customer customer) {
+    @Timed(value = "getCustomerDetails.time", description = "Time taken to return Customer Detail")
+    public CustomerDetails getCustomerDetails(@RequestHeader("ChedjouBank-correlation-id") String correlationId, @RequestBody Customer customer) {
         logger.info("myCustomerDetails method has started");
         logger.debug("ChedjouBank-correlation-id : {}. ", correlationId);
         Account accounts = accountRepository.findByCustomerId(customer.getCustomerId());

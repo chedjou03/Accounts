@@ -1,0 +1,34 @@
+apiVersion: apps/v1 # version use to interact with Kube API Server
+kind: Deployment # deployemnt configuration -> deployment instruction
+metadata: # metadata of this type of configuration which here is deployment
+  name: zipkin-deployment
+  labels:
+    app: zipkin
+spec:
+  replicas: 1 # kuberbetes will ensure that there is only one instance of zipkin running
+  selector:
+    matchLabels:
+      app: zipkin #This specification is for the App zipkin -> metadata.labels.app
+  template:
+    metadata:
+      labels:
+        app: zipkin
+    spec:
+      containers: # container specification
+      - name: zipkin
+        image: openzipkin/zipkin
+        ports:
+        - containerPort: 9411
+---
+apiVersion: v1
+kind: Service # service configuration -> service instruction -> decide if we expose our MS to the outside world or not
+metadata:
+  name: zipkin-service # this name is use when one MS wanna communication with another
+spec:
+  selector:
+    app: zipkin
+  type: LoadBalancer # cuz I wanna expose my zipkin to the outside world
+  ports:
+    - protocol: TCP
+      port: 9411 # port to the outside world
+      targetPort: 9411 # port inside the container

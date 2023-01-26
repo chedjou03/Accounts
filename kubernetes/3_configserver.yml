@@ -1,0 +1,45 @@
+apiVersion: apps/v1 # Api version will be apps/v1 for deployment and just v1  for service
+kind: Deployment
+metadata:
+  name: configserver-deployment
+  labels:
+    app: configserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configserver
+  template:
+    metadata:
+      labels:
+        app: configserver
+    spec:
+      containers:
+      - name: configserver
+        image: chedjou03/configserver:latest
+        ports:
+        - containerPort: 8071 # internally docker container will maintain this port
+        env: # Environment variable define in the configmap file # my config server need to know which spring profile to start on and the address of the zipkin server
+        - name: SPRING_ZIPKIN_BASEURL
+          valueFrom: 
+            configMapKeyRef:
+              name: chedjoubank-configmap
+              key: SPRING_ZIPKIN_BASEURL
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom: 
+            configMapKeyRef:
+              name: chedjoubank-configmap
+              key: SPRING_PROFILES_ACTIVE
+---
+apiVersion: v1
+kind: Service # define this configuration to expose to outside worldß
+metadata:
+  name: configserver-service # that the name it will be reference to the outside world
+spec:
+  selector:
+    app: configserver
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8071 # port on which it will be expose to the outside world
+      targetPort: 8071 # should map the container port
